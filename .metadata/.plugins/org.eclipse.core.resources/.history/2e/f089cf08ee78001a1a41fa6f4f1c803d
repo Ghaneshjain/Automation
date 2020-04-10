@@ -1,0 +1,57 @@
+package com.selenium.training;
+
+import org.testng.annotations.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Test;
+
+public class Login {
+WebDriver driver;
+@BeforeClass(alwaysRun=true)
+public void setupSuite()
+{
+	System.setProperty("webdriver.gecko.driver", "/Users/ghanesh.jain/Downloads/geckodriver");
+	driver=new FirefoxDriver();
+	driver.manage().window().maximize();
+}
+	@Test
+	public void launch() throws InterruptedException {
+		driver.get("https://ezcontent.srijan.net/user/login");
+		driver.findElement(By.id("edit-name")).sendKeys("editor@srijan.net");
+		driver.findElement(By.id("edit-pass")).sendKeys("editor@123");
+		driver.findElement(By.id("edit-submit")).click();
+		Thread.sleep(4000);
+	}
+	
+	@Test
+	public void CheckImage() throws Exception {
+		
+		WebElement ImageFile = driver.findElement(By.className("img-fluid d-inline-block align-top"));
+	        
+	        Boolean ImagePresent = (Boolean) ((JavascriptExecutor)driver).executeScript("return arguments[0].complete && typeof arguments[0].naturalWidth != \"undefined\" && arguments[0].naturalWidth > 0", ImageFile);
+	        if (!ImagePresent)
+	        {
+	             System.out.println("Image not displayed.");
+	        }
+	        else
+	      
+	            System.out.println("Image displayed.");
+	        }
+		
+	
+	@AfterClass()
+	public void teardown() {
+		driver.quit();
+	}
+	
+}
+	
+
+

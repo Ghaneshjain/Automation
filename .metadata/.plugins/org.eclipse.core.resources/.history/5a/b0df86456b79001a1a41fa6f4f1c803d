@@ -1,0 +1,8 @@
+package com.selenium.training;
+
+public class Base {
+	public static String URL="https://uat.mybbu.com";
+	private static String User="makeupartist";
+	private static String Pass="Srijan@123";
+
+}

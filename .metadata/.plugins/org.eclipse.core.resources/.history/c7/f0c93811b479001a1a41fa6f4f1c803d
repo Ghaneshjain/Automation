@@ -1,0 +1,57 @@
+package com.automationpractice.ecomm;
+
+import org.testng.annotations.Test;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class Login {
+	WebDriver driver;
+	@BeforeClass
+	public void setupsuite() {
+		System.setProperty("webdriver.gecko.driver", "/Users/ghanesh.jain/Downloads/geckodriver");
+		driver=new FirefoxDriver();
+		driver.manage().window().maximize();
+		}
+	@Test
+	public void loginPage() throws InterruptedException {
+		driver.get("http://automationpractice.com/index.php");
+		driver.findElement(By.linkText("Sign in")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.id("email")).sendKeys("ghanesh.jain@srijan.net");
+		driver.findElement(By.id("passwd")).sendKeys("Ghanesh@123");
+		driver.findElement(By.id("SubmitLogin")).click();
+		Thread.sleep(5000);
+	}
+	@Test
+	public void searchProduct() throws InterruptedException {
+    driver.findElement(By.id("search_query_top")).sendKeys("dress");
+    driver.findElement(By.name("submit_search")).click();
+    Thread.sleep(1000);
+    JavascriptExecutor js = (JavascriptExecutor) driver;
+    js.executeScript("window.scrollBy(0,250)", "");
+	}
+	@Test
+	public void addtoCart() {
+		
+		Actions actions = new Actions(driver);
+        //Retrieve WebElement 'Music' to perform mouse hover 
+     WebElement menuOption = driver.findElement(By.xpath("//*[@id=\"center_column\"]/ul/li[1]/div/div[2]"));
+     actions.moveToElement(menuOption).perform();
+     System.out.println("Done Mouse hover on 'Music' from Menu");
+     driver.findElement(By.xpath("//*[@id=\"center_column\"]/ul/li[1]/div/div[2]/div[2]/a[1]/span")).click();
+	}
+	
+	@AfterClass
+	public void teardown() {
+		driver.quit();
+	}
+
+}

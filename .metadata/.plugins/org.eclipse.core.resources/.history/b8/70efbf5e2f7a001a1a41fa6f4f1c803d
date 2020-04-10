@@ -1,0 +1,63 @@
+package com.automationpractice.ecomm;
+
+import org.testng.annotations.Test;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class Login {
+	WebDriver driver;
+	@BeforeClass
+	public void setupsuite() {
+		System.setProperty("webdriver.gecko.driver", "/Users/ghanesh.jain/Downloads/geckodriver");
+		driver=new FirefoxDriver();
+		driver.manage().window().maximize();
+		}
+	@Test(priority=0)
+	public void loginPage() throws InterruptedException {
+		driver.get("http://automationpractice.com/index.php");
+		driver.findElement(By.linkText("Sign in")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.id("email")).sendKeys("ghanesh.jain@srijan.net");
+		driver.findElement(By.id("passwd")).sendKeys("Ghanesh@123");
+		driver.findElement(By.id("SubmitLogin")).click();
+		Thread.sleep(5000);
+	}
+	@Test(priority=1)
+	public void searchProduct() throws InterruptedException {
+    driver.findElement(By.id("search_query_top")).sendKeys("dress");
+    driver.findElement(By.name("submit_search")).click();
+    Thread.sleep(1000);
+	}
+    @Test(priority=2)
+    public void addToCart() throws InterruptedException{
+    	driver.navigate().to("http://automationpractice.com/index.php?id_product=7&controller=product");
+        Thread.sleep(1000);
+        driver.findElement(By.id("add_to_cart")).click();
+    	
+    }
+
+//    JavascriptExecutor js = (JavascriptExecutor) driver;
+//    js.executeScript("window.scrollBy(200,800)", "");
+//    Thread.sleep(2000);
+
+	
+	
+     
+//	
+//	@AfterClass
+//	public void teardown() {
+//		driver.quit();
+//	}
+
+}
